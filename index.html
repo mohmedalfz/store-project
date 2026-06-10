@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>المتجر</title>
+</head>
+<body>
 
+<h1>🛒 المنتجات</h1>
+<div id="products">جاري التحميل...</div>
+
+<script src="supabase.js"></script>
+
+<script>
+async function loadProducts() {
+  const res = await fetch(SUPABASE_URL + "/rest/v1/products", {
+    method: "GET",
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: "Bearer " + SUPABASE_ANON_KEY
+    }
+  });
+
+  const data = await res.json();
+
+  const box = document.getElementById("products");
+  box.innerHTML = "";
+
+  if (data.length === 0) {
+    box.innerHTML = "لا يوجد منتجات بعد";
+    return;
+  }
+
+  data.forEach(p => {
+    box.innerHTML += `
+      <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+        <h3>${p.name}</h3>
+        <p>💰 ${p.price}</p>
+        <img src="${p.image}" width="120">
+        <p>${p.description}</p>
+      </div>
+    `;
+  });
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>
