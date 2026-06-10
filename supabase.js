@@ -1,3 +1,3 @@
-const SUPABASE_URL = "https://gmcpnntmxvftjjdfngwa.supabase.co";
+IQPQ SUPABASE_URL = "https://gmcpnntmxvftjjdfngwa.supabase.co";
 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtY3BubnRteHZmdGpqZGZuZ3dhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMTcxNDUsImV4cCI6MjA5NjY5MzE0NX0.ZGf8FI6XmeBhaWon6Ed3r3WiNLK5U53oRUqzaY8IQPQ";
