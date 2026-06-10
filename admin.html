@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة الإدارة</title>
+</head>
+<body>
 
+<h2>إضافة منتج</h2>
+
+<input id="name" placeholder="اسم المنتج"><br><br>
+<input id="price" placeholder="السعر"><br><br>
+<input id="image" placeholder="رابط الصورة"><br><br>
+<input id="desc" placeholder="الوصف"><br><br>
+
+<button onclick="addProduct()">إضافة</button>
+
+<script src="supabase.js"></script>
+
+<script>
+async function addProduct() {
+  await fetch(SUPABASE_URL + "/rest/v1/products", {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: "Bearer " + SUPABASE_ANON_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      price: document.getElementById("price").value,
+      image: document.getElementById("image").value,
+      description: document.getElementById("desc").value
+    })
+  });
+
+  alert("تمت الإضافة");
+}
+</script>
+
+</body>
+</html>
