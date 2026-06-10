@@ -3,23 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>لوحة الإدارة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #6c757d;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
 </head>
 <body>
 
-<h2>إضافة منتج</h2>
+<h2>إضافة منتج جديد</h2>
 
-<input id="name" placeholder="اسم المنتج"><br><br>
-<input id="price" placeholder="السعر"><br><br>
-<input id="image" placeholder="رابط الصورة"><br><br>
-<input id="desc" placeholder="الوصف"><br><br>
+<input id="name" placeholder="اسم المنتج"><br>
+<input id="price" placeholder="السعر"><br>
+<input id="image" placeholder="رابط الصورة"><br>
+<input id="desc" placeholder="الوصف"><br>
 
-<button onclick="addProduct()">إضافة</button>
+<button onclick="addProduct()">إضافة المنتج</button>
+<a href="index.html" class="back-btn">العودة للمتجر</a>
 
 <script src="supabase.js"></script>
 
 <script>
 async function addProduct() {
-  await fetch(SUPABASE_URL + "/rest/v1/products", {
+  const name = document.getElementById("name").value;
+  const price = document.getElementById("price").value;
+  const image = document.getElementById("image").value;
+  const desc = document.getElementById("desc").value;
+
+  if (!name || !price || !image || !desc) {
+    alert("يرجى ملء جميع الحقول");
+    return;
+  }
+
+  const response = await fetch(SUPABASE_URL + "/rest/v1/products", {
     method: "POST",
     headers: {
       apikey: SUPABASE_ANON_KEY,
@@ -27,14 +85,27 @@ async function addProduct() {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      name: document.getElementById("name").value,
-      price: document.getElementById("price").value,
-      image: document.getElementById("image").value,
-      description: document.getElementById("desc").value
+      name: name,
+      price: price,
+      image: image,
+      description: desc
     })
   });
 
-  alert("تمت الإضافة");
+  if (response.ok) {
+    alert("تمت الإضافة بنجاح! ✅");
+    // مسح الحقول
+    document.getElementById("name").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("image").value = "";
+    document.getElementById("desc").value = "";
+    // الانتقال إلى الموقع لعرض المنتج الجديد
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 500);
+  } else {
+    alert("حدث خطأ في الإضافة! ❌");
+  }
 }
 </script>
 
