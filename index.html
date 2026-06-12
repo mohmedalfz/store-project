@@ -1,104 +1,315 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مؤسسة مزاج الهناء للشيش والمعسل</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مؤسسة مزاج الهناء للشيش والمعسل</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-
-<header>
-    <div class="logo">
-        <img src="images/logo.png" alt="مزاج الهناء">
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="images/logo.png" alt="مزاج الهناء" class="logo">
+          <div class="store-info">
+            <h1>مزاج الهناء</h1>
+            <p>للشيش والمعسلات</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-call" onclick="callStore()">
+            <i class="fas fa-phone"></i> اتصل بنا
+          </button>
+          <button class="btn-whatsapp" onclick="whatsappStore()">
+            <i class="fab fa-whatsapp"></i> واتس
+          </button>
+          <button class="btn-cart" onclick="openCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="cart-badge">0</span>
+          </button>
+          <button class="btn-admin" onclick="openAdminLogin()">
+            <i class="fas fa-lock"></i>
+          </button>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <h1>مؤسسة مزاج الهناء للشيش والمعسل</h1>
-
-    <div class="buttons">
-        <a href="https://wa.me/966509729530">واتساب</a>
-        <a href="tel:+966509729530">اتصال</a>
-        <a href="#">السلة 🛒</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>كل ما تحتاجه من الشيش والمعسلات</h2>
+      <p>ولوازم الشيشه في مكان واحد — بأسعار مناسبة وجودة عالية وأسعار منافسة للسوق</p>
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
+        تصفح المنتجات
+      </button>
     </div>
-</header>
+  </section>
 
-<section class="hero">
-    <h2>كل ما تحتاجه من الشيش والمعسل في مكان واحد</h2>
-    <p>جودة عالية • أسعار منافسة • خدمة 24 ساعة</p>
-
-    <a href="#products">تصفح المنتجات</a>
-</section>
-
-<section class="features">
-
-    <div>
-        <h3>🕒 مفتوح 24 ساعة</h3>
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-store"></i>
+          <h3>تسوق داخل المتجر</h3>
+          <p>زيارتنا في طويق بالرياض</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-car"></i>
+          <h3>إيصال للسيارة</h3>
+          <p>خدمة الاستلام من سيارتك</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-truck"></i>
+          <h3>خدمة التوصيل</h3>
+          <p>نوصل لك على باب بيتك</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-clock"></i>
+          <h3>مفتوح 24 ساعة</h3>
+          <p>خدمة متواصلة طوال اليوم</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div>
-        <h3>🚚 خدمة التوصيل</h3>
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>التقييم</h3>
+          <p class="stat-number">4.9 <i class="fas fa-star"></i></p>
+          <p class="stat-label">من 245 تقييم على الخريطة</p>
+        </div>
+        <div class="stat-card">
+          <h3>الزائرون</h3>
+          <p class="stat-number" id="visitors-display">250</p>
+          <p class="stat-label">زائر اليوم</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div>
-        <h3>🚗 استلام من السيارة</h3>
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="container">
+      <h2>الأقسام</h2>
+      <div class="categories-grid" id="categories-grid">
+        <div class="category-card" data-category="شيش" onclick="filterProducts('شيش')">
+          <img src="images/shisha.jpg" alt="شيش">
+          <h3>الشيش</h3>
+        </div>
+        <div class="category-card" data-category="شيش-الكترونية" onclick="filterProducts('شيش-الكترونية')">
+          <img src="images/electronic-shisha.jpg" alt="شيش إلكترونية">
+          <h3>شيش إلكترونية</h3>
+        </div>
+        <div class="category-card" data-category="فحم" onclick="filterProducts('فحم')">
+          <img src="images/charcoal.jpg" alt="فحم">
+          <h3>الفحم</h3>
+        </div>
+        <div class="category-card" data-category="معسل" onclick="filterProducts('معسل')">
+          <img src="images/molasses.jpg" alt="معسل">
+          <h3>المعسل</h3>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div>
-        <h3>💰 أسعار منافسة</h3>
+  <!-- Products Section -->
+  <section class="products-section">
+    <div class="container">
+      <h2 id="products">المنتجات</h2>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterProducts('all')">الكل</button>
+        <button class="filter-btn" onclick="filterProducts('شيش')">شيش</button>
+        <button class="filter-btn" onclick="filterProducts('شيش-الكترونية')">شيش إلكترونية</button>
+        <button class="filter-btn" onclick="filterProducts('فحم')">فحم</button>
+        <button class="filter-btn" onclick="filterProducts('معسل')">معسل</button>
+      </div>
+      <div id="products-grid" class="products-grid">
+        <div class="loading">جاري تحميل المنتجات...</div>
+      </div>
     </div>
+  </section>
 
-</section>
+  <!-- Reviews Section -->
+  <section class="reviews">
+    <div class="container">
+      <h2>آراء عملائنا</h2>
+      <div class="reviews-grid" id="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">أ</div>
+            <div class="reviewer-info">
+              <h4>أحمد السلمي</h4>
+              <p class="review-date">منذ أسبوع</p>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"محل حلو فيه كل الأشياء الي أحتاجها"</p>
+        </div>
 
-<section class="categories">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">م</div>
+            <div class="reviewer-info">
+              <h4>محمد الغامدي</h4>
+              <p class="review-date">منذ أسبوعين</p>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"كل شيء متوفر وأسعاره مناسبة"</p>
+        </div>
 
-<h2>الأقسام</h2>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">ع</div>
+            <div class="reviewer-info">
+              <h4>عبدالله العتيبي</h4>
+              <p class="review-date">منذ شهر</p>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"من أروع المحلات وأسعاره ممتازة"</p>
+        </div>
 
-<div class="category">الشيش</div>
-<div class="category">الشيش الإلكترونية</div>
-<div class="category">الفحم</div>
-<div class="category">المعسل</div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">ف</div>
+            <div class="reviewer-info">
+              <h4>فيصل الدوسري</h4>
+              <p class="review-date">منذ شهر</p>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"تعامل ممتاز وتوفير لجميع الاحتياجات"</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</section>
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <h2>موقعنا</h2>
+      <p>الرياض - طويق</p>
+      <a href="https://maps.app.goo.gl/QjLs3uUzsqxrfyyo9?g_st=ic" target="_blank" class="btn-primary">
+        <i class="fas fa-map"></i> افتح الموقع على الخريطة
+      </a>
+    </div>
+  </section>
 
-<section id="products">
+  <!-- Contact Section -->
+  <section class="contact">
+    <div class="container">
+      <h2>تواصل معنا</h2>
+      <div class="contact-buttons">
+        <a href="tel:+966509729530" class="btn-large">
+          <i class="fas fa-phone"></i> اتصل بنا
+        </a>
+        <a href="https://wa.me/966509729530" class="btn-large whatsapp">
+          <i class="fab fa-whatsapp"></i> واتس آب
+        </a>
+      </div>
+    </div>
+  </section>
 
-<h2>المنتجات</h2>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>مؤسسة مزاج الهناء</h3>
+          <p>للشيش والمعسلات</p>
+        </div>
+        <div class="footer-section">
+          <h4>معلومات التواصل</h4>
+          <p><i class="fas fa-phone"></i> +966 50 972 9530</p>
+          <p><i class="fas fa-map-marker-alt"></i> الرياض - طويق</p>
+          <p><i class="fas fa-clock"></i> مفتوح 24/7</p>
+        </div>
+        <div class="footer-section">
+          <h4>الخدمات</h4>
+          <ul>
+            <li>تسوق داخل المتجر</li>
+            <li>إيصال للسيارة</li>
+            <li>خدمة التوصيل</li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p class="footer-bottom">&copy; 2024 مؤسسة مزاج الهناء. جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
 
-<div id="products-container">
-جاري تحميل المنتجات...
-</div>
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCart()">&times;</span>
+      <h2>السلة</h2>
+      <div id="cart-items">
+        <p class="empty-cart">السلة فارغة</p>
+      </div>
+      <div class="cart-footer">
+        <div id="cart-total">الإجمالي: 0 ﷼</div>
+        <button class="btn-primary" onclick="checkoutCart()">اتمام الشراء</button>
+      </div>
+    </div>
+  </div>
 
-</section>
+  <!-- Admin Login Modal -->
+  <div id="admin-modal" class="modal">
+    <div class="modal-content admin-login">
+      <span class="close-btn" onclick="closeAdminLogin()">&times;</span>
+      <h2>دخول المدير</h2>
+      <form onsubmit="loginAdmin(event)">
+        <input type="text" id="admin-username" placeholder="اسم المستخدم" required>
+        <input type="password" id="admin-password" placeholder="كلمة السر" required>
+        <button type="submit" class="btn-primary">دخول</button>
+      </form>
+      <p id="login-error" class="error"></p>
+    </div>
+  </div>
 
-<section class="reviews">
+  <!-- Product Detail Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content product-detail">
+      <span class="close-btn" onclick="closeProductModal()">&times;</span>
+      <div id="product-detail-content">
+        <!-- سيتم ملؤها من الجافاسكريبت -->
+      </div>
+    </div>
+  </div>
 
-<h2>آراء العملاء</h2>
-
-<p>⭐ 4.9 من أكثر من 245 تقييم</p>
-
-</section>
-
-<section class="location">
-
-<h2>موقعنا</h2>
-
-<a href="https://maps.app.goo.gl/QjLs3uUzsqxrfyyo9?g_st=ic">
-فتح الموقع على الخريطة
-</a>
-
-</section>
-
-<footer>
-
-<p>مؤسسة مزاج الهناء للشيش والمعسل</p>
-
-<p>📞 +966 50 972 9530</p>
-
-</footer>
-
-<script src="supabase.js"></script>
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
